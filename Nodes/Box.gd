@@ -1,38 +1,40 @@
 extends Area2D
 
-export var validade = 0
+export var text = ""
+var can_pick_up = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_to_group("box")
-	$"Pickup Sign".hide()
-	$"Pickup Sign".text = str(validade)
-	pass # Replace with function body.
+    can_pick_up = true
+    $Label.text = text
+    $Pickup.hide()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass # Replace with function body.
+    pass
 
-func get_picked():
-	disable_pickup()
-	self.hide()
-	self.monitoring = false
 
-func drop(position):
-	self.position = position
-	self.show()
-	self.monitoring = true
+func get_text():
+    return $Label.text
 
-func enable_pickup():
-	$"Pickup Sign".show()
+func set_text(text_to_set):
+    text = text_to_set
+    $Label.text = text
+    
+    
+func deselect():
+    $Pickup.hide()
+    
+func select():
+    $Pickup.show()
 
-func disable_pickup():
-	$"Pickup Sign".hide()
 
-func _on_Box_body_entered(body):
-	if body.is_in_group("player"):
-		body.add_possible_pickup_item(self)
+func can_pick_up():
+    return can_pick_up;
 
-func _on_Box_body_exited(body):
-	if body.is_in_group("player"):
-		body.remove_possible_pickup_item(self)
+func disable_pick():
+    can_pick_up = false
+    
+func enable_pick():
+    can_pick_up = true

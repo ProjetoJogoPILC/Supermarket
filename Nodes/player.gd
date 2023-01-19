@@ -36,18 +36,18 @@ func movement():
         direction += Vector2(-1, 0);
     if Input.is_action_pressed("ui_right"):
         direction += Vector2(1, 0);
-    
+
     if direction.length() != 0:
         speed = speed.linear_interpolate(direction * max_speed, acceleration/100)
     else:
         speed = speed.linear_interpolate(direction * max_speed, deacceleration/100)
-    move_and_slide(speed)
+    speed = move_and_slide(speed)
 
 
 func _on_PickupRange_area_entered(area):
     if area.is_in_group("pickable"):
         overlapping_items.append(area)
-        
+
 
 func _on_PickupRange_area_exited(area):
     if area.is_in_group("pickable"):
@@ -63,10 +63,10 @@ func item_pick():
         overlapping_items.sort_custom(self, "sortDescendingByDistance")
         var selected_item = overlapping_items.back()
         for item in overlapping_items:
-            item.deselect()        
+            item.deselect()
         selected_item.select()
         ##################################
-        if Input.is_action_just_pressed("ui_accept") and selected_item.can_pick_up():
+        if Input.is_action_just_pressed("ui_accept") and selected_item.get_can_pick_up():
             iventory.append(selected_item.get_text())
             selected_item.queue_free()
             picked_up = true

@@ -1,32 +1,38 @@
 extends Node2D
 
+const instanceBox = preload("res://Nodes/Box.tscn")
+onready var hud = get_node("Hud")
+signal start_next_challenge(challenge_type, qtd_boxes)
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var verify = true
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-    $Control.unset_success()
-    verify = true
-    pass # Replace with function body.
+    hud.unset_success()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-    if $PalletVerifier.boxes_are_ordered and verify:
-        $Timer.start(1)
-        $Control.set_success()
-        verify = false
+    pass
+
+
+func spawn_box(text: String, position: Vector2):
+    var box = instanceBox.instance()
+    box.set_text(text)
+    box.position = position
+    self.add_child(box)
 
 
 func next_challenge():
-    $Control.unset_success()
-    $Spawner.spawn_boxes("text")
-    $PalletVerifier.delete_boxes()
-    verify = true
-    print("Next challenge!")
-    
-func _on_Timer_timeout():
+    hud.unset_success()
+    emit_signal("start_next_challenge", "text", randi()%6+1)
+
+
+func _on_PalletVerifier_ordered():
+    hud.set_success()
+    $Timer.start(1)
+
+
+func _on_Timer_timeout(): # SIGNAL
     next_challenge()
+
+
+func _on_Spawner_drop_box(text, position):
+	spawn_box(text, position)

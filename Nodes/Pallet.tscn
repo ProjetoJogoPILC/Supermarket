@@ -19,5 +19,13 @@ shape = SubResource( 6 )
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 0, -6 )
 
+[node name="Label" type="Label" parent="."]
+margin_left = -20.0
+margin_top = 17.0
+margin_right = 20.0
+margin_bottom = 31.0
+text = "label"
+align = 1
+
 [connection signal="area_entered" from="." to="." method="_on_Pallet_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Pallet_area_exited"]

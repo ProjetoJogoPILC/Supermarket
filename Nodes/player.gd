@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 
-# Declare member variables here. Examples:
 export var max_speed = 5
 export var acceleration = 0.1
 export var deacceleration = 0.5
@@ -12,13 +11,12 @@ var overlapping_items = []
 var iventory = []
 var picked_up = false
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
     pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
     picked_up = false
     movement()
     item_pick()

@@ -9,7 +9,7 @@ func _ready():
     hud.unset_success()
 
 
-func _process(delta):
+func _process(_delta):
     pass
 
 

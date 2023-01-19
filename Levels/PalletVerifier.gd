@@ -18,7 +18,7 @@ func _ready():
     last_boxes_are_ordered = false
 
 
-func _process(delta):
+func _process(_delta):
     boxes.clear()
     for node in get_children():
         if node.is_in_group("pallet"):
